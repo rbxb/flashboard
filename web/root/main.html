@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html lang="en">
+<head>
+	<title>Flashboard</title>
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="Public copy/paste board.">
+	<meta name="keywords" content="flashboard, copy, paste">
+	<link rel="stylesheet" href="main.css" />
+</head>
+<body>
+	<div id="content-wrapper" align="center">
+		<div id="content" align="left">
+			<div class="content-block">
+				<h2>Flashboard</h2>
+				<p>Posts are publicly visible for 30 seconds.</p>
+			</div>
+			<div class="content-block">
+				<form onsubmit="sendPost();return false">
+					<input type="text" id="post-input" placeholder="Enter text or a link" oninput="inputChange()" autocomplete="off">
+					<input type="submit" id="post-button" ok="false" value="Post">
+				</form>
+				<p id="post-warning"></p>
+			</div>
+			<div class="content-block">
+				<div id="posts-header-bar">
+					<h2>Posts</h2>
+					<button class="refresh-button" onclick="getPosts()">Refresh</button>
+				</div>
+				<template id="post-template">
+					<div class="post">
+						<input readonly />
+						<button onclick="copyText(this)">Copy</button>
+					</div>
+				</template>
+				<div id="posts-list">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="main.js"></script>
+</html>
