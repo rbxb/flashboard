@@ -38,8 +38,6 @@ func (sv *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 	case "POST":
-		sv.Lock()
-		defer sv.Unlock()
 		if text, err := ioutil.ReadAll(req.Body); err != nil {
 			http.Error(w, "Bad request.", 400)
 			return
@@ -47,6 +45,8 @@ func (sv *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "Post size invalid.", 400)
 			return
 		} else {
+			sv.Lock()
+			defer sv.Unlock()
 			sv.clean()
 			if len(sv.posts) == cap(sv.posts) {
 				http.Error(w, "Server full.", 503)
